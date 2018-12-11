@@ -6,15 +6,22 @@ static int LoadMedia(char path[])
 
     SDL_LockSurface(screen);
     /* load image*/
-    image_to_load = SDL_LoadBMP(path);
+    FILE *file= path;
+    fopen( file,"r");
+    char filestream;
+     fputs(filestream,file);
+
+
+    image_to_load = SDL_LoadBMP(filestream);
     if (image_to_load == NULL)
     {
         SDL_Log("Failed to load image %s ", SDL_GetError());
         return -1;
     }
     SDL_BlitSurface(image_to_load, NULL, screen, NULL);
+    SDL_FreeSurface(image_to_load);
     SDL_UnlockSurface(screen);
-
+    fclose(file);
     return 0;
 }
 
@@ -64,7 +71,7 @@ int main(int argc, char const **argv)
    }
     for (;;)
     {
-        SDL_Event event;
+        SDL_Event event;    //close window event
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
