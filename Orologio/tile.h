@@ -1,5 +1,5 @@
-#include <stdlib.h>
-#include <string.h>
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
 
 typedef struct tile
 {

@@ -10,7 +10,7 @@ ifeq ($(OS),Windows_NT)
 	BINARY_TESTS:=$(BINARY_TESTS).exe
 endif
 
-orologio: main.o tile.o
+orologio: main.o tile.o gfx.o
 	$(CC) -o $(BINARY) $(LDFLAGS) $^
 
 main.o: main.c
@@ -19,9 +19,12 @@ main.o: main.c
 tile.o: tile.c tile.h
 	$(CC) -c -o $@ $(CFLAGS) $<
 
+gfx.o: gfx.c gfx.h
+	$(CC) -c -o $@ $(CFLAGS) $<
+
 tests.o: test.c
 	$(CC) -c -o $@ $(CFLAGS) $^
 
-test: test.o tile.o
+test: test.o tile.o gfx.o
 	$(CC) -o $(BINARY_TESTS) $(LDFLAGS) $^
 	$(BINARY_TESTS)

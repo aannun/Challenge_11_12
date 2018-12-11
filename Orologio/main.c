@@ -1,5 +1,7 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
+#include "gfx.h"
+#include <stdlib.h>
 
 int main(int argc, char const *argv[])
 {
@@ -28,6 +30,9 @@ int main(int argc, char const *argv[])
 		goto cleanup3;
 	}
 
+    tile_t *tile = malloc(sizeof(tile_t));
+    init_tile(tile, 10, 10);
+
     for (;;)
 	{
 		SDL_Event event;
@@ -37,7 +42,10 @@ int main(int argc, char const *argv[])
 				goto cleanup4;
 		}
 
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
+
+        tile_draw(tile, renderer, 10);
 
 		SDL_RenderPresent(renderer);
 	}
