@@ -35,7 +35,7 @@ static void button_clicked(uiButton *uiButton, void *data)
         int size = get_file_length(stream);
         char *filedata = malloc(sizeof(char) * size);
 
-        read_file(filename, filedata, size);
+        read_file(stream, filename, filedata, size);
 
         uiMultilineEntry *multiline = _data->multiline;
         uiMultilineEntrySetText(multiline, filedata);
