@@ -1,8 +1,6 @@
 #include "aiv_unit_test.h"
 #include "tile.h"
 #include <stdlib.h>
-#include <string.h>
-
 
 TEST(tile_init)
 {
