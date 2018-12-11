@@ -2,6 +2,7 @@
 #include "ui.h"
 #include "file_manipulator.h"
 #include <stdlib.h>
+#include <string.h>
 
 TEST(file_not_exists)
 {
@@ -19,28 +20,37 @@ TEST(file_exists)
     ASSERT_THAT(exists(&file, filename) == 0)
 }
 
-TEST(file_open)
+TEST(file_length)
 {
+    FILE *stream;
     char *filename = "FileTest.txt";
-    char *filedata = malloc(sizeof(char) * 10);
 
-    ASSERT_THAT(read_file(filename, filedata) == 0)
+    exists(&stream, filename);
+    
+    int size = get_file_length(stream);
+    
+    ASSERT_THAT(size == 5)
 }
 
 TEST(file_read)
 {
+    FILE *stream;
     char *filename = "FileTest.txt";
-    char *filedata = malloc(sizeof(char) * 10);
 
-    read_file(filename, filedata);
-    ASSERT_THAT(filedata == "prova")
+    exists(&stream, filename);
+
+    int size = get_file_length(stream);
+    char *filedata = malloc(sizeof(char) * size);
+
+    read_file(stream, filename, filedata, size);
+    ASSERT_THAT(_strcmpi(filedata, "prova") == 0)
 }
 
 int main(int argc, char **argv)
 {
 	RUN_TEST(file_not_exists);
 	RUN_TEST(file_exists);
-	RUN_TEST(file_open);
+	RUN_TEST(file_length);
 	RUN_TEST(file_read);
 
 	PRINT_TEST_RESULTS();
